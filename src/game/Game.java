@@ -35,11 +35,16 @@ public class Game {
         StaticBody platform1 = new StaticBody(world, platformShape);
         platform1.setPosition(new Vec2(-8, -4f));
 
+        Shape platform2Shape = new BoxShape(3, 0.5f);
+        StaticBody platform2 = new StaticBody(world, platform2Shape);
+        platform2.setPosition(new Vec2(8, -2f));
+
         //make a character (with an overlaid image)
-        Shape studentShape = new BoxShape(1,2);
+        Shape studentShape = new BoxShape(1,3);
         DynamicBody student = new DynamicBody(world, studentShape);
         student.setPosition(new Vec2(4,-5));
-        student.addImage(new BodyImage("data/student.png", 4));
+        student.addImage(new BodyImage("data/character.png", 8));
+
 
 
         //3. make a view to look into the game world
