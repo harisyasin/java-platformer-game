@@ -43,7 +43,7 @@ public class Game {
         Shape studentShape = new BoxShape(1,3);
         DynamicBody student = new DynamicBody(world, studentShape);
         student.setPosition(new Vec2(4,-5));
-        student.addImage(new BodyImage("data/character.png", 8));
+        student.addImage(new BodyImage("data/char.png", 8));
 
 
 
@@ -70,6 +70,8 @@ public class Game {
         frame.pack();
         // finally, make the frame visible
         frame.setVisible(true);
+
+        frame.addKeyListener(new Controls(student));
 
         //optional: uncomment this to make a debugging view
          JFrame debugView = new DebugViewer(world, 500, 500);
