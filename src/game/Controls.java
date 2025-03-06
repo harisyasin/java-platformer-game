@@ -30,7 +30,8 @@ public class Controls implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_W -> {
-                if (character.getLinearVelocity().y <= 0.05 && !isJumping) { // Only jump if standing on ground
+                //if (character.getLinearVelocity().y <= 0.01 && !isJumping) { // Only jump if standing on ground
+                if (character.getLinearVelocity().y >= -0.05 && character.getLinearVelocity().y <= 0.05 && !isJumping) { // Only jump if standing on ground
                     character.setLinearVelocity(new org.jbox2d.common.Vec2(character.getLinearVelocity().x, 10));
                     character.removeAllImages();
                     character.addImage(upImage);
