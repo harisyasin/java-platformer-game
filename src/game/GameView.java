@@ -8,15 +8,42 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends UserView {
-    private DynamicBody character;
+    //private DynamicBody character;
+    private Player player;
     private Image background;
+    private Score score;
+    private Health health;
 
-    public GameView(World world, int width, int height, DynamicBody character) {
+
+    public GameView(World world, int width, int height, Player player, Score score, Health health) {
         super(world, width, height);
-        this.character = character;
+        this.player = player;
+        this.score =  score;
+        this.health =  health;
 
         // Load the background image
         background = new ImageIcon("data/background.png").getImage();
+    }
+
+    @Override
+    protected void paintForeground(Graphics2D g) {
+        super.paintForeground(g);
+
+        // Draw health bar
+        health.draw(g);
+
+        // Draw score
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Score: " + score.getScore(), 20, 60);
+    }
+
+    public Health getHealth() {
+        return health;
+    }
+
+    public Score getScore() {
+        return score;
     }
 
     @Override
@@ -27,8 +54,8 @@ public class GameView extends UserView {
     }
 
     public void updateCamera() {
-        if (character != null) {
-            this.setCentre(character.getPosition()); // Center camera on character
+        if (player != null) {
+            this.setCentre(player.getPosition()); // Center camera on character
         }
     }
 }
