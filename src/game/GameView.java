@@ -1,14 +1,11 @@
 package game;
 
-import city.cs.engine.DynamicBody;
 import city.cs.engine.UserView;
 import city.cs.engine.World;
-import org.jbox2d.common.Vec2;
 import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends UserView {
-    //private DynamicBody character;
     private Player player;
     private Image background;
     private Score score;
@@ -36,14 +33,6 @@ public class GameView extends UserView {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + score.getScore(), 20, 60);
-    }
-
-    public Health getHealth() {
-        return health;
-    }
-
-    public Score getScore() {
-        return score;
     }
 
     @Override

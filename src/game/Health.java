@@ -26,27 +26,15 @@ public class Health {
         }
     }
 
-
-    public void heal(int amount) {
-        currentHealth += amount;
-        if (currentHealth > maxHealth) {
-            currentHealth = maxHealth;
-        }
-    }
-
     public int getCurrentHealth() {
         return currentHealth;
-    }
-
-    public int getMaxHealth() {
-        return maxHealth;
     }
 
     // Render health bar
     public void draw(Graphics2D g) {
         int barWidth = 200;
         int barHeight = 20;
-        int x = 20; // Position on screen
+        int x = 20;
         int y = 20;
 
         // Background bar

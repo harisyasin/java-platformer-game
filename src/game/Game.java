@@ -3,8 +3,6 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Game {
     private World world;
@@ -14,11 +12,6 @@ public class Game {
         // Initialize instance variables properly
         world = new World();
         frame = new JFrame("City Game");
-
-//        // Create ground platform
-//        Shape shape = new BoxShape(7, 0.5f);
-//        StaticBody ground = new StaticBody(world, shape);
-//        ground.setPosition(new Vec2(-21f, -11.5f));
 
         // Create player as a Walker
         Player player = new Player(world);
@@ -30,6 +23,8 @@ public class Game {
         // Create ground platform
         Shape ground = new BoxShape(7, 0.5f);
         new StaticBody(world, ground).setPosition(new Vec2(-21f, -11.5f));
+        new StaticBody(world, ground).setPosition(new Vec2(76f, -20f));
+        new StaticBody(world, ground).setPosition(new Vec2(120, 1));
 
         // Create suspended platforms
         Shape platformShape = new BoxShape(2, 0.5f);
@@ -42,15 +37,29 @@ public class Game {
         new StaticBody(world, platformShape).setPosition(new Vec2(62, 2f));
 
         // Create ground platform
-        Shape bigplatform = new BoxShape(20, 0.5f);
-        new StaticBody(world, bigplatform).setPosition(new Vec2(13, 7));
+        Shape longShape = new BoxShape(20, 0.5f);
+        new StaticBody(world, longShape).setPosition(new Vec2(13, 7));
 
+        //Make walls
+        Shape wallShape1 = new BoxShape(0.5f, 8);
+        new StaticBody(world, wallShape1).setPosition(new Vec2(70, -6));
+
+        Shape wallShape2 = new BoxShape(0.5f, 14);
+        new StaticBody(world, wallShape2).setPosition(new Vec2(74, 0));
+
+        //Thin blocks
+        Shape thinShape = new BoxShape(0.5f, 3f);
+        new StaticBody(world, thinShape).setPosition(new Vec2(88, -18));
+        new StaticBody(world, thinShape).setPosition(new Vec2(94, -14));
+        new StaticBody(world, thinShape).setPosition(new Vec2(100, -10));
+        new StaticBody(world, thinShape).setPosition(new Vec2(106, -6));
 
         // Add collectibles
-        new Collectible(world, score, 10).setPosition(new Vec2(-16, -2));
-        new Collectible(world, score, 10).setPosition(new Vec2(-15, 8));
-        new Collectible(world, score, 10).setPosition(new Vec2(29, 8));
-        new Collectible(world, score, 10).setPosition(new Vec2(62, 3));
+        new Collectible(world, score, 20).setPosition(new Vec2(-16, -2));
+        new Collectible(world, score, 20).setPosition(new Vec2(-15, 8));
+        new Collectible(world, score, 20).setPosition(new Vec2(29, 8));
+        new Collectible(world, score, 20).setPosition(new Vec2(62, 3));
+        new Collectible(world, score, 20).setPosition(new Vec2(120, 3));
 
         // Add spikes
         new Spike(world, health).setPosition(new Vec2(-19, -5.5f));
@@ -58,6 +67,9 @@ public class Game {
         new Spike(world, health).setPosition(new Vec2(-21f, 3.5f));
         new Spike(world, health).setPosition(new Vec2(-6f, 8.5f));
         new Spike(world, health).setPosition(new Vec2(32f, 8.5f));
+
+        // Add zombie enemy
+        new Zombie(world, health);
 
         // Create game view and attach to player
         GameView view = new GameView(world, 800, 600, player, score, health);
@@ -73,7 +85,7 @@ public class Game {
         frame.pack();
         frame.setVisible(true);
 
-        frame.addKeyListener(new Controls(player));
+        frame.addKeyListener(new Controls(player, this));
 
         // Debug viewer (optional)
         new DebugViewer(world, 500, 500);
@@ -85,7 +97,7 @@ public class Game {
     /** Reset the game. */
     public void resetGame() {
         System.out.println("Resetting game...");
-        world.stop();
+        world.stop();;
         frame.dispose();
         new Game();
     }
