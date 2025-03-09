@@ -11,7 +11,7 @@ public class GameView extends UserView {
     private Score score;
     private Health health;
 
-
+    // Constructor to create the game view
     public GameView(World world, int width, int height, Player player, Score score, Health health) {
         super(world, width, height);
         this.player = player;
@@ -22,6 +22,7 @@ public class GameView extends UserView {
         background = new ImageIcon("data/background.png").getImage();
     }
 
+    // Draw the foreground
     @Override
     protected void paintForeground(Graphics2D g) {
         super.paintForeground(g);
@@ -35,6 +36,7 @@ public class GameView extends UserView {
         g.drawString("Score: " + score.getScore(), 20, 60);
     }
 
+    // Draw the background image
     @Override
     protected void paintBackground(Graphics2D g) {
         if (background != null) {
@@ -42,9 +44,10 @@ public class GameView extends UserView {
         }
     }
 
+    // Update the camera to follow the player
     public void updateCamera() {
         if (player != null) {
-            this.setCentre(player.getPosition()); // Center camera on character
+            this.setCentre(player.getPosition());
         }
     }
 }

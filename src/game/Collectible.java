@@ -5,10 +5,11 @@ import city.cs.engine.*;
 public class Collectible extends DynamicBody implements CollisionListener {
     private static final Shape shape = new CircleShape(0.5f);
     private static final BodyImage image = new BodyImage("data/collectible.png", 1);
+
     private Score score;
+    private int scoreValue;
 
-    private int scoreValue; // Score awarded when collected
-
+    // Constructor to create a collectible
     public Collectible(World world, Score score, int scoreValue) {
         super(world, shape);
         addImage(image);
@@ -17,9 +18,10 @@ public class Collectible extends DynamicBody implements CollisionListener {
         addCollisionListener(this);
     }
 
+    // Collision event between the collectible and the player
     @Override
     public void collide(CollisionEvent e) {
-        if (e.getOtherBody() instanceof Walker) { // Player or any walking entity
+        if (e.getOtherBody() instanceof Walker) {
             score.addPoints(scoreValue);
             this.destroy();
         }

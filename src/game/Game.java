@@ -9,7 +9,8 @@ public class Game {
     private JFrame frame;
 
     public Game() {
-        // Initialize instance variables properly
+
+        // Create the game world
         world = new World();
         frame = new JFrame("City Game");
 
@@ -17,10 +18,11 @@ public class Game {
         Player player = new Player(world);
         player.setPosition(new Vec2(-25, -8f));
 
+        // Create score and health
         Score score = new Score();
         Health health = new Health(100, this);
 
-        // Create ground platform
+        // Create ground platforms
         Shape ground = new BoxShape(7, 0.5f);
         new StaticBody(world, ground).setPosition(new Vec2(-21f, -11.5f));
         new StaticBody(world, ground).setPosition(new Vec2(76f, -20f));
@@ -36,18 +38,18 @@ public class Game {
         new StaticBody(world, platformShape).setPosition(new Vec2(52, 2f));
         new StaticBody(world, platformShape).setPosition(new Vec2(62, 2f));
 
-        // Create ground platform
+        // Create longer ground platform
         Shape longShape = new BoxShape(20, 0.5f);
         new StaticBody(world, longShape).setPosition(new Vec2(13, 7));
 
-        //Make walls
+        //Create walls
         Shape wallShape1 = new BoxShape(0.5f, 8);
         new StaticBody(world, wallShape1).setPosition(new Vec2(70, -6));
 
         Shape wallShape2 = new BoxShape(0.5f, 14);
         new StaticBody(world, wallShape2).setPosition(new Vec2(74, 0));
 
-        //Thin blocks
+        //Create thin blocks
         Shape thinShape = new BoxShape(0.5f, 3f);
         new StaticBody(world, thinShape).setPosition(new Vec2(88, -18));
         new StaticBody(world, thinShape).setPosition(new Vec2(94, -14));
@@ -68,33 +70,34 @@ public class Game {
         new Spike(world, health).setPosition(new Vec2(-6f, 8.5f));
         new Spike(world, health).setPosition(new Vec2(32f, 8.5f));
 
-        // Add zombie enemy
+        // Add zombie (enemy)
         new Zombie(world, health);
 
         // Create game view and attach to player
         GameView view = new GameView(world, 800, 600, player, score, health);
 
         // Update camera position
-        Timer timer = new Timer(10, e -> view.updateCamera());
+        Timer timer = new Timer(5, e -> view.updateCamera());
         timer.start();
 
-        // Add view to JFrame
+        // Set up JFrame
         frame.add(view);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
 
+        // Add key listener to JFrame
         frame.addKeyListener(new Controls(player, this));
 
         // Debug viewer (optional)
         new DebugViewer(world, 500, 500);
 
-        // Start world simulation
+        // Start the world simulation
         world.start();
     }
 
-    /** Reset the game. */
+    // Reset the game
     public void resetGame() {
         System.out.println("Resetting game...");
         world.stop();;
@@ -102,7 +105,7 @@ public class Game {
         new Game();
     }
 
-    /** Run the game. */
+    // Run the game
     public static void main(String[] args) {
         new Game();
     }

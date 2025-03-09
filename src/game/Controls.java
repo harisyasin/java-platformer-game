@@ -7,11 +7,13 @@ public class Controls implements KeyListener {
     private final Player player;
     private final Game game;
 
+    // Constructor to pass player and game objects
     public Controls(Player player, Game game) {
         this.player = player;
         this.game = game;
     }
 
+    // Handle key presses
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -22,6 +24,7 @@ public class Controls implements KeyListener {
         }
     }
 
+    // Stop moving when A or D is released
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_D) {
@@ -29,6 +32,7 @@ public class Controls implements KeyListener {
         }
     }
 
+    // Not used
     @Override
     public void keyTyped(KeyEvent e) {}
 }

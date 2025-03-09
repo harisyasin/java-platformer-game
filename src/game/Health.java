@@ -7,12 +7,14 @@ public class Health {
     private int currentHealth;
     private Game game;
 
+    // Constructor to create health
     public Health(int maxHealth, Game game) {
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         this.game = game;
     }
 
+    // Take damage
     public void takeDamage(int damage) {
         currentHealth -= damage;
         if (currentHealth < 0) {
@@ -20,17 +22,19 @@ public class Health {
         }
         System.out.println("Health: " + currentHealth);
 
+        // Reset game if health is 0
         if (currentHealth == 0) {
             System.out.println("Player died! Resetting game...");
             game.resetGame();
         }
     }
 
+    // Return current health
     public int getCurrentHealth() {
         return currentHealth;
     }
 
-    // Render health bar
+    // Draw health bar
     public void draw(Graphics2D g) {
         int barWidth = 200;
         int barHeight = 20;
