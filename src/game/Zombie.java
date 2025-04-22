@@ -10,7 +10,7 @@ public class Zombie extends Walker implements StepListener, CollisionListener {
 
     private float leftBound = -2;
     private float rightBound = 25;
-    private float speed = 15;
+    private float speed = 10;
     private boolean movingRight = true;
     private Health health;
 
