@@ -19,7 +19,7 @@ public class GameView extends UserView {
         this.health =  health;
 
         // Load the background image
-        background = new ImageIcon("data/background.png").getImage();
+        background = new ImageIcon("data/background1.png").getImage();
     }
 
     // Draw the foreground
@@ -34,6 +34,14 @@ public class GameView extends UserView {
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + score.getScore(), 20, 60);
+    }
+
+    public void setPlayer(Player newPlayer) {
+        this.player = newPlayer;
+    }
+    
+    public void setBackgroundImage(String path) {
+        background = new ImageIcon(path).getImage();
     }
 
     // Draw the background image

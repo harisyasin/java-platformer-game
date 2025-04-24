@@ -4,8 +4,13 @@ import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
 public class Level1 extends GameLevel {
-    public Level1(Game game) {
-        super(game);
+    public Level1(Game game, Score score, Health health) {
+        super(game, score, health);
+    }
+
+    @Override
+    public String getBackgroundImage() {
+        return "data/background1.png";
     }
 
     @Override
@@ -63,11 +68,10 @@ public class Level1 extends GameLevel {
 
         // Zombie (enemy)
         new Zombie(world, health);
+
+        //Portal
+        Portal portal = new Portal(getWorld(), game);
+        portal.setPosition(new Vec2(125, 3.5f));
     }
 
-    @Override
-    public boolean isCompleted() {
-        // Change this later based on your level goal
-        return score.getScore() >= 100;
-    }
 }

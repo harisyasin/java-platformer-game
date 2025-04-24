@@ -5,18 +5,20 @@ import city.cs.engine.*;
 public abstract class GameLevel {
     protected World world;
     protected Player player;
+    protected Game game;
     protected Score score;
     protected Health health;
 
-    public GameLevel(Game game) {
-        this.world = new World();
-        this.score = new Score();
-        this.health = new Health(100, game);
-        this.player = new Player(world);
-        this.player.setPosition(new org.jbox2d.common.Vec2(-25, -8));
+    public GameLevel(Game game, Score score, Health health) {
+        this.game = game;
+        this.score = score;
+        this.health = health;
+        world = new World();
+        player = new Player(world);
     }
 
-    public abstract void populate(); // Place objects, enemies, etc.
+    public abstract void populate();
+    public abstract String getBackgroundImage();
 
     public World getWorld() {
         return world;
@@ -33,6 +35,4 @@ public abstract class GameLevel {
     public Health getHealth() {
         return health;
     }
-
-    public abstract boolean isCompleted();
 }

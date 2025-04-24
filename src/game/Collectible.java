@@ -21,7 +21,7 @@ public class Collectible extends DynamicBody implements CollisionListener {
     // Collision event between the collectible and the player
     @Override
     public void collide(CollisionEvent e) {
-        if (e.getOtherBody() instanceof Walker) {
+        if (e.getOtherBody() instanceof Player) {
             score.addPoints(scoreValue);
             this.destroy();
         }
