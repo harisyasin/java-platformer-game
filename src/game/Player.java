@@ -2,16 +2,22 @@ package game;
 
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
+import javax.swing.Timer;
 
 public class Player extends Walker {
     private static final Shape playerShape = new BoxShape(0.9f, 1.5f);
     private static final BodyImage idleImage = new BodyImage("data/idle.gif", 4);
     private static final BodyImage leftImage = new BodyImage("data/walkleft.gif", 4);
     private static final BodyImage rightImage = new BodyImage("data/walkright.gif", 4);
+    private boolean hasGun = false; // Player starts without the gun
+    private boolean canShoot = true; // Player can shoot
+    private Health health;
+
 
     // Constructor to create player
     public Player(World world) {
         super(world, playerShape);
+        this.health = health;
         addImage(idleImage);
     }
 
@@ -40,6 +46,28 @@ public class Player extends Walker {
             setLinearVelocity(new Vec2(getLinearVelocity().x, 10));
         }
     }
+
+    public void pickUpGun() {
+        hasGun = true;
+    }
+
+    public void shoot() {
+        if (hasGun && canShoot) {
+            canShoot = false; // Disable shooting
+            Vec2 direction = getLinearVelocity().x >= 0 ? new Vec2(1, 0) : new Vec2(-1, 0);
+            Vec2 velocity = direction.mul(20);
+            Vec2 spawnOffset = direction.mul(1.5f);
+            Vec2 spawnPosition = getPosition().add(spawnOffset);
+
+            new Bullet(getWorld(), spawnPosition, velocity, health, this);
+
+            // Start cooldown timer
+            Timer cooldownTimer = new Timer(250, e -> canShoot = true);
+            cooldownTimer.setRepeats(false);
+            cooldownTimer.start();
+        }
+    }
+
 
     // Swap the image of the player
     private void setImage(BodyImage image) {

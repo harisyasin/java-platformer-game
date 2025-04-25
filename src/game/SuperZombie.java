@@ -73,7 +73,7 @@ public class SuperZombie extends Walker implements StepListener, CollisionListen
         Vec2 velocity = movingRight ? new Vec2(15, 0) : new Vec2(-15, 0);
         Vec2 offset = movingRight ? new Vec2(1.2f, 0) : new Vec2(-1.2f, 0);
         Vec2 spawnPosition = getPosition().add(offset);
-        new Bullet(getWorld(), spawnPosition, velocity, health);
+        new Bullet(getWorld(), spawnPosition, velocity, health, this);
 
     }
 

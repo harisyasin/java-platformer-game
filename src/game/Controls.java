@@ -21,6 +21,8 @@ public class Controls implements KeyListener {
             case KeyEvent.VK_A -> player.moveLeft();
             case KeyEvent.VK_D -> player.moveRight();
             case KeyEvent.VK_R -> game.resetGame();
+            case KeyEvent.VK_SPACE -> player.shoot(); // Press space to shoot
+
         }
     }
 

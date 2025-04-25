@@ -22,7 +22,7 @@ public class Game {
         health = new Health(100, this);
 
         // Start with Level 1
-        currentLevel = new Level1(this, score, health);
+        currentLevel = new Level3(this, score, health);
         currentLevel.populate();
 
         // Create view and attach to player
@@ -36,8 +36,10 @@ public class Game {
         frame.addKeyListener(new Controls(currentLevel.getPlayer(), this));
 
         // Start camera update timer
-        cameraTimer = new Timer(5, e -> view.updateCamera());
+        cameraTimer = new Timer(1, e -> view.updateCamera());
         cameraTimer.start();
+
+
 
         debugViewer = new DebugViewer(currentLevel.getWorld(), 500, 500);
 
@@ -79,10 +81,14 @@ public class Game {
         System.out.println("Resetting game...");
         currentLevel.getWorld().stop();
         frame.dispose();
+        if (debugViewer != null) {
+            debugViewer.dispose(); // Close the debug viewer
+        }
         new Game();
     }
 
     public static void main(String[] args) {
         new Game();
     }
+
 }
