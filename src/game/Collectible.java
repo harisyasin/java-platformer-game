@@ -23,6 +23,7 @@ public class Collectible extends DynamicBody implements CollisionListener {
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Player) {
             score.addPoints(scoreValue);
+            Sound.collectibleSound.play();
             this.destroy();
         }
     }

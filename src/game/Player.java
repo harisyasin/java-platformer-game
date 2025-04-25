@@ -44,6 +44,7 @@ public class Player extends Walker {
     public void jump() {
         if (getLinearVelocity().y >= -0.05 && getLinearVelocity().y <= 0.05) {
             setLinearVelocity(new Vec2(getLinearVelocity().x, 10));
+            Sound.jumpSound.play();
         }
     }
 
@@ -54,6 +55,7 @@ public class Player extends Walker {
     public void shoot() {
         if (hasGun && canShoot) {
             canShoot = false; // Disable shooting
+            Sound.shootSound.play();
             Vec2 direction = getLinearVelocity().x >= 0 ? new Vec2(1, 0) : new Vec2(-1, 0);
             Vec2 velocity = direction.mul(20);
             Vec2 spawnOffset = direction.mul(1.5f);

@@ -22,6 +22,7 @@ public class Portal extends StaticBody implements SensorListener {
     public void beginContact(SensorEvent e) {
         if (e.getContactBody() instanceof Player) {
             System.out.println("Player entered portal! Switching level...");
+            Sound.portalSound.play();
             game.goToNextLevel();
         }
     }

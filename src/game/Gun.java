@@ -21,7 +21,8 @@ public class Gun extends DynamicBody implements CollisionListener {
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Player) {
-            player.pickUpGun(); // Enable shooting
+            player.pickUpGun();
+            Sound.gunPickupSound.play();// Enable shooting
             if (barrier != null) {
                 barrier.destroy(); // Destroy the barrier
             }

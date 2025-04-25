@@ -22,7 +22,7 @@ public class Game {
         health = new Health(100, this);
 
         // Start with Level 1
-        currentLevel = new Level3(this, score, health);
+        currentLevel = new Level2(this, score, health);
         currentLevel.populate();
 
         // Create view and attach to player
