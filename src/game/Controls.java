@@ -3,11 +3,12 @@ package game;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+// Controls class
 public class Controls implements KeyListener {
     private final Player player;
     private final Game game;
 
-    // Constructor to pass player and game objects
+    // Constructor
     public Controls(Player player, Game game) {
         this.player = player;
         this.game = game;

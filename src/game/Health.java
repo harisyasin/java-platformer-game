@@ -2,6 +2,7 @@ package game;
 
 import java.awt.*;
 
+// Health class
 public class Health {
     private int maxHealth;
     private int currentHealth;
@@ -18,15 +19,12 @@ public class Health {
     public void takeDamage(int damage) {
         currentHealth -= damage;
         Sound.damageSound.play();
-        if (currentHealth < 0) {
-            currentHealth = 0;
-        }
         System.out.println("Health: " + currentHealth);
 
         // Reset game if health is 0
-        if (currentHealth == 0) {
+        if (currentHealth <= 0) {
             Sound.deathSound.play();
-            System.out.println("Player died! Resetting game...");
+            System.out.println("Player died!");
             game.resetGame();
         }
     }

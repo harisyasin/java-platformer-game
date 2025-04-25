@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import org.jbox2d.common.Vec2;
 
+// GameView class
 public class GameView extends UserView {
     private Player player;
     private Image background;
@@ -22,8 +23,6 @@ public class GameView extends UserView {
         // Load the background image
         background = new ImageIcon("data/background1.png").getImage();
     }
-
-
 
     // Draw the foreground
     @Override
@@ -55,15 +54,12 @@ public class GameView extends UserView {
         }
     }
 
-    // Update the camera to follow the player
+    // Update the camera to follow the player (with interpolation for smoothness)
     public void updateCamera() {
-//        if (player != null) {
-//            this.setCentre(player.getPosition());
-//        }
         if (player != null) {
             Vec2 currentCenter = this.getCentre();
             Vec2 targetCenter = player.getPosition();
-            float t = 0.1f; // Interpolation factor (adjust for smoothness)
+            float t = 0.1f;
             Vec2 newCenter = new Vec2(
                     currentCenter.x * (1 - t) + targetCenter.x * t,
                     currentCenter.y * (1 - t) + targetCenter.y * t

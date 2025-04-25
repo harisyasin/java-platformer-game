@@ -2,6 +2,7 @@ package game;
 
 import city.cs.engine.*;
 
+// GameLevel class
 public abstract class GameLevel {
     protected World world;
     protected Player player;
@@ -9,6 +10,7 @@ public abstract class GameLevel {
     protected Score score;
     protected Health health;
 
+    // Constructor
     public GameLevel(Game game, Score score, Health health) {
         this.game = game;
         this.score = score;
@@ -20,6 +22,7 @@ public abstract class GameLevel {
     public abstract void populate();
     public abstract String getBackgroundImage();
 
+    // Return functions
     public World getWorld() {
         return world;
     }

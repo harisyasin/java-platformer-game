@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Skeleton class
 public class Skeleton extends Walker implements StepListener, CollisionListener {
     private static final Shape shape = new BoxShape(1f, 1.5f);
     private static final BodyImage leftImage = new BodyImage("data/skeletonleft.gif", 3f);
@@ -18,9 +19,8 @@ public class Skeleton extends Walker implements StepListener, CollisionListener 
     private Health health;
     private Timer shootTimer;
     private int healthPoints = 100;
-    //private final float leftBound = 221;
-    //private final float rightBound = 277;
 
+    // Constructor
     public Skeleton(World world, Player player, Health health) {
         super(world, shape);
         this.player = player;
@@ -41,6 +41,7 @@ public class Skeleton extends Walker implements StepListener, CollisionListener 
         shootTimer.start();
     }
 
+    // Follow player
     @Override
     public void preStep(StepEvent e) {
         Vec2 playerPos = player.getPosition();
@@ -59,14 +60,16 @@ public class Skeleton extends Walker implements StepListener, CollisionListener 
     @Override
     public void postStep(StepEvent e) {}
 
+    // Collision event
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Player) {
             health.takeDamage(30);
-            System.out.println("Player hit by skeleton! Health: " + health.getCurrentHealth());
+            System.out.println("Player hit by skeleton!");
         }
     }
 
+    // Shoot player
     private void shoot() {
         Vec2 velocity = movingRight ? new Vec2(18, 0) : new Vec2(-18, 0);
         Vec2 offset = movingRight ? new Vec2(1f, 0) : new Vec2(-1f, 0);
@@ -79,6 +82,7 @@ public class Skeleton extends Walker implements StepListener, CollisionListener 
         addImage(image);
     }
 
+    // Skeleton damage
     public void takeDamage(int amount) {
         healthPoints -= amount;
         if (healthPoints <= 0) {

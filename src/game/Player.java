@@ -4,13 +4,14 @@ import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 import javax.swing.Timer;
 
+// Player class
 public class Player extends Walker {
     private static final Shape playerShape = new BoxShape(0.9f, 1.5f);
     private static final BodyImage idleImage = new BodyImage("data/idle.gif", 4);
     private static final BodyImage leftImage = new BodyImage("data/walkleft.gif", 4);
     private static final BodyImage rightImage = new BodyImage("data/walkright.gif", 4);
-    private boolean hasGun = false; // Player starts without the gun
-    private boolean canShoot = true; // Player can shoot
+    private boolean hasGun = false;
+    private boolean canShoot = true;
     private Health health;
 
 
@@ -48,10 +49,12 @@ public class Player extends Walker {
         }
     }
 
+    // Player picks up gun
     public void pickUpGun() {
         hasGun = true;
     }
 
+    // Shoot gun
     public void shoot() {
         if (hasGun && canShoot) {
             canShoot = false; // Disable shooting

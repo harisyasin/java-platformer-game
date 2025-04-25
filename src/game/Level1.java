@@ -3,11 +3,13 @@ package game;
 import city.cs.engine.*;
 import org.jbox2d.common.Vec2;
 
+// Level1 class
 public class Level1 extends GameLevel {
     public Level1(Game game, Score score, Health health) {
         super(game, score, health);
     }
 
+    // Add background
     @Override
     public String getBackgroundImage() {
         return "data/background1.png";

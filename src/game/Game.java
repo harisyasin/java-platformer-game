@@ -2,8 +2,8 @@ package game;
 
 import city.cs.engine.*;
 import javax.swing.*;
-import java.awt.event.*;
 
+// Game class
 public class Game {
     private GameLevel currentLevel;
     private GameView view;
@@ -13,7 +13,7 @@ public class Game {
     private Health health;
     private DebugViewer debugViewer;
 
-
+// Constructor
     public Game() {
         frame = new JFrame("City Game");
 
@@ -22,7 +22,7 @@ public class Game {
         health = new Health(100, this);
 
         // Start with Level 1
-        currentLevel = new Level2(this, score, health);
+        currentLevel = new Level3(this, score, health);
         currentLevel.populate();
 
         // Create view and attach to player
@@ -39,16 +39,12 @@ public class Game {
         cameraTimer = new Timer(1, e -> view.updateCamera());
         cameraTimer.start();
 
-
-
         debugViewer = new DebugViewer(currentLevel.getWorld(), 500, 500);
-
-        // Optional: Debugging
 
         currentLevel.getWorld().start();
     }
 
-    // Called when entering the portal
+    // To switch levels
     public void goToNextLevel() {
         currentLevel.getWorld().stop();
         frame.removeKeyListener(frame.getKeyListeners()[0]);
@@ -76,7 +72,7 @@ public class Game {
         currentLevel.getWorld().start();
     }
 
-
+    // Reset game
     public void resetGame() {
         System.out.println("Resetting game...");
         currentLevel.getWorld().stop();
