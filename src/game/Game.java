@@ -12,22 +12,27 @@ public class Game {
     private Score score;
     private Health health;
     private DebugViewer debugViewer;
+    private int levelIndex = 0;
+    // 0 = menu, 1 = Level1, 2 = Level2, 3 = Level3
 
-// Constructor
+    // Constructor
     public Game() {
+        // Launch the main menu
+        SwingUtilities.invokeLater(() -> new MainMenu(this).setVisible(true));
+    }
+
+    // Start the game
+    public void startGame() {
         frame = new JFrame("City Game");
 
-        // Set up initial score and health
         score = new Score();
         health = new Health(100, this);
 
-        // Start with Level 1
-        currentLevel = new Level3(this, score, health);
-        currentLevel.populate();
+        // Start Level 1
+        levelIndex = 1;
+        loadLevel();
 
-        // Create view and attach to player
         view = new GameView(currentLevel.getWorld(), 800, 600, currentLevel.getPlayer(), score, health);
-
         frame.setContentPane(view);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
@@ -35,27 +40,28 @@ public class Game {
         frame.setVisible(true);
         frame.addKeyListener(new Controls(currentLevel.getPlayer(), this));
 
-        // Start camera update timer
         cameraTimer = new Timer(1, e -> view.updateCamera());
         cameraTimer.start();
 
         debugViewer = new DebugViewer(currentLevel.getWorld(), 500, 500);
-
         currentLevel.getWorld().start();
     }
 
-    // To switch levels
+    // Goes to next level
     public void goToNextLevel() {
         currentLevel.getWorld().stop();
         frame.removeKeyListener(frame.getKeyListeners()[0]);
 
-        if (currentLevel instanceof Level1) {
+        levelIndex++;
+
+        if (levelIndex == 2) {
             currentLevel = new Level2(this, score, health);
-        } else if (currentLevel instanceof Level2) {
+        } else if (levelIndex == 3) {
             currentLevel = new Level3(this, score, health);
         } else {
-            System.out.println("All levels completed!");
-            System.exit(0);
+            frame.dispose();
+            new EndScreen(this, score.getScore()).setVisible(true);
+            return;
         }
 
         currentLevel.populate();
@@ -63,28 +69,32 @@ public class Game {
         view.setPlayer(currentLevel.getPlayer());
         view.setBackgroundImage(currentLevel.getBackgroundImage());
 
-        // Reattach key listener to new player
         frame.addKeyListener(new Controls(currentLevel.getPlayer(), this));
-
-        // Update DebugViewer
         debugViewer.setWorld(currentLevel.getWorld());
-
         currentLevel.getWorld().start();
     }
 
-    // Reset game
+    // Load the level
+    private void loadLevel() {
+        if (levelIndex == 1) {
+            currentLevel = new Level1(this, score, health);
+        } else if (levelIndex == 2) {
+            currentLevel = new Level2(this, score, health);
+        } else {
+            currentLevel = new Level3(this, score, health);
+        }
+        currentLevel.populate();
+    }
+
+    // Restart the game
     public void resetGame() {
-        System.out.println("Resetting game...");
         currentLevel.getWorld().stop();
         frame.dispose();
-        if (debugViewer != null) {
-            debugViewer.dispose(); // Close the debug viewer
-        }
+        if (debugViewer != null) debugViewer.dispose();
         new Game();
     }
 
     public static void main(String[] args) {
         new Game();
     }
-
 }

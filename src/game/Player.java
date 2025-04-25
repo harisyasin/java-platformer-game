@@ -67,7 +67,7 @@ public class Player extends Walker {
             new Bullet(getWorld(), spawnPosition, velocity, health, this);
 
             // Start cooldown timer
-            Timer cooldownTimer = new Timer(250, e -> canShoot = true);
+            Timer cooldownTimer = new Timer(200, e -> canShoot = true);
             cooldownTimer.setRepeats(false);
             cooldownTimer.start();
         }
