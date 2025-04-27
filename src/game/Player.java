@@ -31,7 +31,7 @@ public class Player extends Walker {
      * Moves the player to the left.
      */
     public void moveLeft() {
-        startWalking(-5);
+        startWalking(-6);
         setImage(leftImage);
     }
 
@@ -39,7 +39,7 @@ public class Player extends Walker {
      * Moves the player to the right.
      */
     public void moveRight() {
-        startWalking(5);
+        startWalking(6);
         setImage(rightImage);
     }
 
