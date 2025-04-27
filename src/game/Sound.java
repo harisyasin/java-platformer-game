@@ -1,12 +1,13 @@
 package game;
 
 import city.cs.engine.SoundClip;
-
 import java.io.IOException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.sound.sampled.LineUnavailableException;
 
-// Sound class
+/**
+ * Sound loads and manages all the audio used in the game.
+ */
 public class Sound {
     public static SoundClip backgroundMusic;
     public static SoundClip shootSound;
@@ -17,7 +18,7 @@ public class Sound {
     public static SoundClip gunPickupSound;
     public static SoundClip portalSound;
 
-    // Load sounds
+    // Load the sounds when the class is first used
     static {
         try {
             backgroundMusic = new SoundClip("data/sounds/background.wav");
@@ -30,7 +31,7 @@ public class Sound {
             portalSound = new SoundClip("data/sounds/portal.wav");
 
             backgroundMusic.setVolume(0.3);
-            backgroundMusic.loop();
+            backgroundMusic.loop(); // Play background music on loop
 
         } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
             System.out.println("Error loading sound: " + e);

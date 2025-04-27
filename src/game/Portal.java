@@ -2,17 +2,23 @@ package game;
 
 import city.cs.engine.*;
 
-// Portal class
+/**
+ * Portal allows the player to move to the next level when they make contact with it.
+ */
 public class Portal extends StaticBody implements SensorListener {
     private Game game;
     private Sensor sensor;
 
-    // Constructor
+    /**
+     * Constructs a Portal in the given world.
+     * @param world the game world.
+     * @param game the main game object.
+     */
     public Portal(World world, Game game) {
         super(world);
         this.game = game;
 
-        // Create a sensor for the portal
+        // Create and attach a sensor to detect player contact
         sensor = new Sensor(this, new BoxShape(1f, 2f));
         sensor.addSensorListener(this);
 
@@ -20,7 +26,10 @@ public class Portal extends StaticBody implements SensorListener {
         addImage(new BodyImage("data/portal.png", 4));
     }
 
-    // Contact
+    /**
+     * Triggered when the player contacts the portal sensor.
+     * @param e the sensor event.
+     */
     @Override
     public void beginContact(SensorEvent e) {
         if (e.getContactBody() instanceof Player) {
@@ -30,8 +39,12 @@ public class Portal extends StaticBody implements SensorListener {
         }
     }
 
+    /**
+     * Triggered when contact ends with the portal sensor.
+     * @param e the sensor event.
+     */
     @Override
     public void endContact(SensorEvent e) {
-
+        // No action needed when player leaves portal sensor
     }
 }

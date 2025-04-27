@@ -2,13 +2,19 @@ package game;
 
 import city.cs.engine.*;
 
-// Spike class
+/**
+ * Spike is a static hazard that damages the player on contact.
+ */
 public class Spike extends StaticBody implements CollisionListener {
     private static final Shape spikeShape = new BoxShape(0.6f, 1.4f);
     private static final BodyImage spikeImage = new BodyImage("data/spike.png", 2);
     private Health health;
 
-    // Constructor
+    /**
+     * Constructs a Spike object.
+     * @param world the world in which the spike exists.
+     * @param health the player's health system to damage.
+     */
     public Spike(World world, Health health) {
         super(world, spikeShape);
         this.health = health;
@@ -16,7 +22,10 @@ public class Spike extends StaticBody implements CollisionListener {
         addCollisionListener(this);
     }
 
-    // Collision event
+    /**
+     * Handles collisions with the spike.
+     * @param e the collision event.
+     */
     @Override
     public void collide(CollisionEvent e) {
         if (e.getOtherBody() instanceof Player) {
